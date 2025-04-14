@@ -1,11 +1,33 @@
-import { Text, View } from "react-native";
-import {Link} from "expo-router";
+import {Image, ScrollView, Text, View} from "react-native";
+import bg from '../../assets/images/bg.png'
+import logo from '../../assets/icons/logo.png';
 export default function Index() {
   return (
-    <View className='w-full h-full justify-center items-center'>
-      <Text className='text-5xl text-blue-500'>Welcome!</Text>
-        <Link href='/onboarding'>Onboarding page</Link>
-        <Link href='/app/movies/avengers'>Avengers Movie Link</Link>
-    </View>
+      <View
+          style={{
+            flex: 1,
+            backgroundColor: '#030014',
+          }}
+      >
+
+        <Image
+            source={bg}
+            style={{
+                zIndex: 0,
+                position: 'absolute',
+            }}
+        />
+
+      <ScrollView >
+          <Image
+              style={{
+                  width: '100%',
+                  objectFit: 'contain',
+                  top: 50,
+              }}
+              source={logo}
+          />
+      </ScrollView>
+      </View>
   );
 }
