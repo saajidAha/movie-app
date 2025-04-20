@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { router } from 'expo-router';
 
 // The container thats going to hold all the movie cards. this will iterate through the movies array.
 const MovieContainer = ({ title, listOfMovies }: { title: string; listOfMovies: { title: string; image: any, genre: string}[] }) => (
@@ -7,15 +8,24 @@ const MovieContainer = ({ title, listOfMovies }: { title: string; listOfMovies: 
         <Title title={title} />
         <ScrollView style={styles.allMovieCardsContainer} horizontal>
             {listOfMovies.map((movie, index) => (
-                <MovieCard key={index} title={movie.title} genre={movie.genre} image={movie.image} />
+                <MovieCard key={index} id={index} title={movie.title} genre={movie.genre} image={movie.image} />
             ))}
         </ScrollView>
     </View>
 );
 
-// Individual movie Card Component
-const MovieCard = ({title, image, genre}: any) => (
-    <View style={styles.movieCardContainer}>
+// Clickable individual movie Card Component
+const MovieCard = ({ title, image, genre, id }: any) => {
+    // const navigation = useNavigation();
+
+    const handlePress = () => {
+        router.push(`movies/${id}`);
+    };
+
+    return (
+    <TouchableOpacity 
+    style={styles.movieCardContainer}
+    onPress={handlePress} >
         <Image source={image} style={styles.movieCardImg}/>
         <Text style={styles.movieTitle}>
             {title}
@@ -23,8 +33,9 @@ const MovieCard = ({title, image, genre}: any) => (
         <Text style={styles.movieSubTitle}>
             {genre} . Movie
         </Text>
-    </View>
-)
+    </TouchableOpacity>
+    )
+}
 
 
 // Title component
@@ -33,6 +44,7 @@ const Title = ({title}: any) => (
         {title}
     </Text>
 )
+
 
 
 const styles = StyleSheet.create({
