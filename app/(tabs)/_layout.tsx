@@ -1,5 +1,5 @@
 import {Tabs} from "expo-router";
-import {Image, ImageBackground, Text, View} from "react-native";
+import {Image, ImageBackground, Text, View, StyleSheet} from "react-native";
 import homeIcon from '../../assets/icons/home.png';
 import searchIcon from '../../assets/icons/search.png';
 import saveIcon from '../../assets/icons/save.png';
@@ -122,7 +122,7 @@ const ActiveButton = ({label, icon} : any) => {
 // Icon to display whenever its not active
 const NormalIcon = ({icon} : any) => (
         <Image source={icon} style={{
-            marginTop: '10',
+            marginTop: 10, // Changed from string to number
             tintColor: 'white',
             resizeMode: 'contain',
         }}/>
