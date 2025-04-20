@@ -1,8 +1,9 @@
 import {Image, ScrollView, Text, View, StyleSheet, TextInput} from "react-native";
-import bg from '../../assets/images/bg.png'
-import logo from '../../assets/icons/logo.png';
-import searchIcon from '../../assets/icons/search.png';
-import mufasa from '../../assets/images/mufasa.png';
+import bg from '@/assets/images/bg.png'
+import logo from '@/assets/icons/logo.png';
+import searchIcon from '@/assets/icons/search.png';
+import MovieContainer from "@/components/MovieContainer";
+import moviesList from "@/assets/moviesList";
 
 export default function Index() {
   return (
@@ -29,39 +30,17 @@ export default function Index() {
                   style={styles.search}
               />
           </View>
-      {/*    Popular Movies container*/}
-          <View style={styles.movieContainer}>
-            <Title title='Popular Movies'/>
-              <MovieCard title='Mufasa' image={mufasa} />
-          </View>  
+    {/*    Popular Movies container*/}
+    <MovieContainer title="Popular Movies" listOfMovies={moviesList}/>
 
-          {/*    Latest Movies container*/}
-          <View style={styles.movieContainer}>
-            <Title title='Latest Movies'/>
-          </View>
+    {/*    Latest Movies container*/}
+    <MovieContainer title="Latest Movies" listOfMovies={moviesList}/>
+
       </ScrollView>
       </View>
   );
 }
-// Title component
-const Title = ({title}: any) => (
-    <Text style={styles.title}>
-        {title}
-    </Text>
-)
 
-// Movie card component
-const MovieCard = ({title, image}: any) => (
-    <View style={styles.movieCardContainer}>
-        <Image source={image} style={styles.movieCardImg}/>
-        <Text style={styles.movieTitle}>
-            {title}
-        </Text>
-        <Text style={styles.movieSubTitle}>
-            Action . Movie
-        </Text>
-    </View>
-)
 const styles = StyleSheet.create({
     bg: {
         flex: 1,
@@ -98,34 +77,4 @@ const styles = StyleSheet.create({
         left: 40,
         zIndex: 1,
     },
-    title:{
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 25,
-        marginTop: 100,
-    },
-    movieContainer:{
-        flexDirection: 'column',
-        marginLeft: 25,
-        gap: 10,
-    },
-    movieCardContainer:{
-        flexDirection: 'column',
-        gap: 8,
-        width: '40%'
-    },
-    movieTitle:{
-        color:'white',
-        fontWeight: 'bold',
-        fontSize: 20,
-    },
-    movieSubTitle:{
-        color: 'gray',
-        fontWeight: 'semibold',
-        fontSize: 15,
-    },
-    movieCardImg : {
-        width: '100%',
-        height: 250,
-    }
 })
