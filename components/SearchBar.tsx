@@ -1,5 +1,6 @@
 import { StyleSheet, TextInput, View, Image } from "react-native";
 import searchIcon from '@/assets/icons/search.png';
+import { router } from "expo-router";
 
 // Search Bar
 const SearchBar = () => (
@@ -12,10 +13,21 @@ const SearchBar = () => (
              placeholder='Search through 300+ movies online...'
              placeholderTextColor='#A8B5DB'
              style={styles.search}
+             onPress={handlePress}
+             onChangeText={handleTextChange}
          />
      </View>
 );
  
+// helper functions
+const handlePress = () => {
+    router.push('/Search')
+}
+
+const handleTextChange = () => {
+    
+}
+
 const styles = StyleSheet.create({
     search:{
         width: '90%',
