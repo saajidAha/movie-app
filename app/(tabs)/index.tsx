@@ -18,7 +18,7 @@ export default function Index() {
               style={styles.logo}
               source={logo}
           />
-      {/*Search bar*/}
+      {/* Search bar
           <View style={styles.searchContainer}>
               <Image
                 source={searchIcon}
@@ -29,7 +29,7 @@ export default function Index() {
                   placeholderTextColor='#A8B5DB'
                   style={styles.search}
               />
-          </View>
+          </View> */}
     {/*    Popular Movies container*/}
     <MovieContainer title="Popular Movies" listOfMovies={moviesList}/>
 
