@@ -1,35 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
+import { getGenres } from '@/utils/tmdbApiService';
+import star from '@/assets/icons/star.png';
+
 
 // The container thats going to hold all the movie cards. this will iterate through the movies array.
-const MovieContainer = ({ title, listOfMovies }: { title: string; listOfMovies: { title: string; image: any, genre: string}[] }) => (
+const MovieContainer = ({title, listOfMovies}: any) => {
+    const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'; // Specify image size
+    return(
     <View style={styles.movieContainer}>
         <Title title={title} />
         <ScrollView style={styles.allMovieCardsContainer} horizontal>
-            {listOfMovies.map((movie, index) => (
-                <MovieCard key={index} id={index} title={movie.title} genre={movie.genre} image={movie.image} />
-            ))}
+            {listOfMovies.map((movie, index) => {
+                let genreName = mapGenre(movie.genre_ids[0])
+                let rating = (movie.vote_average/2).toFixed(1);
+                return(
+                <MovieCard key={index} id={movie.id} title={movie.title} genre={genreName} image={`${IMAGE_BASE_URL}${movie.backdrop_path}`} rating={rating} />
+            )
+})}
         </ScrollView>
     </View>
-);
+)};
 
 // Clickable individual movie Card Component
-const MovieCard = ({ title, image, genre, id }: any) => {
+const MovieCard = ({ title, image: imageUri, genre, id, rating }: any) => {
     // const navigation = useNavigation();
 
     const handlePress = () => {
-        router.push(`movies/${id}`);
+        router.push(`/movies/${id}`);
     };
 
     return (
     <TouchableOpacity 
     style={styles.movieCardContainer}
     onPress={handlePress} >
-        <Image source={image} style={styles.movieCardImg}/>
+        <Image source={{uri: imageUri}} style={styles.movieCardImg}/>
         <Text style={styles.movieTitle}>
             {title}
         </Text>
+        <View style={styles.ratingContainer}>
+            <Image source={star} />
+            <Text style={styles.movieSubTitle}>{rating}</Text>
+        </View>
         <Text style={styles.movieSubTitle}>
             {genre} . Movie
         </Text>
@@ -45,7 +58,12 @@ const Title = ({title}: any) => (
     </Text>
 )
 
-
+// map the genre based on the number
+const mapGenre = async (genreNumber: number) => {
+    const genreList = await getGenres();
+    const genre = genreList.find((g: any) => g.id === genreNumber);
+    return genre ? genre.name : 'Unknown';
+};
 
 const styles = StyleSheet.create({
 movieContainer:{
@@ -83,6 +101,10 @@ title:{
     fontSize: 25,
     marginTop: 100,
 },
+ratingContainer:{
+    flexDirection: 'row',
+    gap: 5
+}
 })
 
 export default MovieContainer;
