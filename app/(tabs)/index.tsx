@@ -1,11 +1,29 @@
 import {Image, ScrollView, Text, View, StyleSheet, TextInput} from "react-native";
 import bg from '@/assets/images/bg.png'
 import logo from '@/assets/icons/logo.png';
-import moviesList from "@/assets/moviesList";
+import moviesListTemp from "@/utils/moviesList";
 import MovieContainer from "@/components/MovieContainer";
 import SearchBar  from "@/components/SearchBar";
+import { getMovies } from "@/utils/tmdbApiService";
+import { useEffect, useState } from "react";
 
 export default function Index() {
+    const [popularMoviesList, setPopularMoviesList] = useState([]);
+    const [trendingMoviesList, setTrendingMoviesList] = useState([]);
+
+    // fetch the movies and update the state
+    const fetchMovies = async() => {
+        const popularFetchedMovies = await getMovies('popular'); // fetch the movies
+        const trendingFetchedMovies = await getMovies('trending'); // fetch the movies
+        setPopularMoviesList(popularFetchedMovies); // update the state
+        setTrendingMoviesList(trendingFetchedMovies); // update the state
+    }
+
+    useEffect(()=>{
+        fetchMovies();
+    },[])
+
+
   return (
     // Top background image
     <View style={styles.bg}>
@@ -23,10 +41,10 @@ export default function Index() {
       {/* Search bar*/}
       <SearchBar />
         {/*    Popular Movies container*/}
-        <MovieContainer title="Popular Movies" listOfMovies={moviesList}/>
+        <MovieContainer title="Popular Movies" listOfMovies={popularMoviesList}/>
 
         {/*    Latest Movies container*/}
-        <MovieContainer title="Latest Movies" listOfMovies={moviesList}/>
+        <MovieContainer title="Latest Movies" listOfMovies={trendingMoviesList}/>
       </ScrollView>
     </View>
   );
