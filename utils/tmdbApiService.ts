@@ -64,4 +64,22 @@ const getMovieDetails = async(movieId: string | string[]) => {
     }
 }
 
+// Search movies based on query
+const searchMovies = async (query: string) => {
+    try {
+        const response = await tmdbApi.get('/search/movie', {
+            params: {
+                query: query,
+                include_adult: true,
+                language: 'en-US',
+                page: 1
+            }
+        });
+        return response.data.results;
+    } catch (error) {
+        console.error('Error searching movies:', error);
+        return [];
+    }
+}
+
 export {getMovies, getGenres, getMovieDetails, IMAGE_BASE_URL};
