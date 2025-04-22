@@ -1,8 +1,8 @@
 import axios from 'axios';
-import dotenv from 'dotenv';
 
 const API_KEY = process.env.EXPO_PUBLIC_MOVIE_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
 // create a reusable instance of the url with the api key configured
 const tmdbApi = axios.create({
@@ -36,4 +36,14 @@ const getGenres = async() => {
     }
 }
 
-export {getMovies, getGenres};
+// get individual movie details based on the id
+const getMovieDetails = async(movieId: string | string[]) => {
+    try{
+        const response = await tmdbApi.get(`/movie/${movieId}`);
+        return response.data;
+    }catch(error){
+        console.error('Error fetching indiviudual movie datat')
+    }
+}
+
+export {getMovies, getGenres, getMovieDetails, IMAGE_BASE_URL};
