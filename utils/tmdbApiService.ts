@@ -13,10 +13,28 @@ const tmdbApi = axios.create({
     },
 })
 
-// Get movies based on if they are trending or popular
+// Get movies based on if they are trending or popular or other categories
 const getMovies = async(typeOfMovie: string) => {
     let path: string = '';
-    typeOfMovie === 'popular' ? path = 'movie/popular' : path = 'trending/movie/week'
+    switch(typeOfMovie){
+        case 'popular':
+            path = 'movie/popular';
+            break;
+        case 'trending':
+            path = 'trending/movie/week';
+            break;
+        case 'top_rated':
+            path = 'movie/top_rated';
+            break;
+        case 'upcoming':
+            path = 'movie/upcoming';
+            break;
+        case 'now_playing':
+            path = 'movie/now_playing';
+            break;
+        default:
+            path = 'movie/popular';
+    }
     try{
         const response = await tmdbApi.get(path);
         const moviesList = response.data.results;

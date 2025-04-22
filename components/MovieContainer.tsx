@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     movieContainer: {
         flexDirection: 'column',
         marginLeft: 25,
-        gap: 20,
+        gap: 15,
     },
     allMovieCardsContainer: {
         flexDirection: 'row',

@@ -21,7 +21,7 @@ const MovieCard = ({ title, image: imageUri, genre, id, rating }: MovieCardProps
             style={styles.movieCardContainer}
             onPress={handlePress}>
             <Image source={{uri: imageUri}} style={styles.movieCardImg}/>
-            <Text style={styles.movieTitle}>
+            <Text style={styles.movieTitle} numberOfLines={1} ellipsizeMode="tail">
                 {title}
             </Text>
             <View style={styles.ratingContainer}>
@@ -29,7 +29,7 @@ const MovieCard = ({ title, image: imageUri, genre, id, rating }: MovieCardProps
                 <Text style={styles.movieSubTitle}>{rating}</Text>
             </View>
             <Text style={styles.movieSubTitle}>
-                {genre} · Movie
+                {genre} . Movie
             </Text>
         </TouchableOpacity>
     );
@@ -39,26 +39,28 @@ const styles = StyleSheet.create({
     movieCardContainer: {
         flexDirection: 'column',
         gap: 8,
-        width: 150,
-        marginRight: 30,
+        width: 140,
+        marginRight: 20, // for the spacing between the movie cards
     },
     movieCardImg: {
-        width: 150,
-        height: 250,
+        width: 140,
+        height: 200,
+        borderRadius: 12,
     },
     movieTitle: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: 16,
     },
     movieSubTitle: {
         color: 'gray',
         fontWeight: 'semibold',
-        fontSize: 15,
+        fontSize: 13,
     },
     ratingContainer: {
         flexDirection: 'row',
-        gap: 5
+        gap: 5,
+        alignItems: 'center',
     }
 });
 
