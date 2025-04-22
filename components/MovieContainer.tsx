@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import MovieCard from './movie/MovieCard';
 import Title from './movie/Title';
-import { getGenres } from '@/utils/tmdbApiService';
+import { getGenres, IMAGE_BASE_URL } from '@/utils/tmdbApiService';
 
 interface MovieContainerProps {
     title: string;
@@ -16,7 +16,6 @@ interface MovieContainerProps {
 }
 
 const MovieContainer = ({ title, listOfMovies }: MovieContainerProps) => {
-    const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
     const [genreList, setGenreList] = useState<any[]>([]);
 
     useEffect(() => {
