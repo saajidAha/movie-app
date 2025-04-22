@@ -1,4 +1,4 @@
-import {Image, ScrollView, Text, View, StyleSheet, SafeAreaView} from "react-native";
+import {Image, ScrollView, Text, View, StyleSheet, SafeAreaView, ActivityIndicator} from "react-native";
 
 import bg from '@/assets/images/bg.png'
 import logo from '@/assets/icons/logo.png';
@@ -15,10 +15,15 @@ export default function Index() {
     const [upcomingMoviesList, setUpcomingMoviesList] = useState([]);
     const [nowPlayingMoviesList, setNowMoviesList] = useState([]);
 
+    // State for loading icon
+    const [loading, setLoading] = useState(false);
+
 
     // fetch the movies and update the state
     useEffect(()=>{
         const fetchMovies = async() => {
+            setLoading(true); // set loading to true
+            // fetch the movies
             const popularFetchedMovies = await getMovies('popular'); // fetch the movies
             const trendingFetchedMovies = await getMovies('trending'); // fetch the movies
             const topRatedFetchedMovies = await getMovies('top_rated'); // fetch the movies
@@ -29,20 +34,29 @@ export default function Index() {
             setTopRatedMoviesList(topRatedFetchedMovies); // update the state
             setUpcomingMoviesList(upcomingFetchedMovies); // update the state
             setNowMoviesList(nowPlayingFetchedMovies); // update the state
+            setLoading(false); // set loading to false
         }
         fetchMovies();
     },[])
 
+    if (loading){
+        styles.bg
+        return (
+            <View style={[styles.bg, styles.loader]}>
+                <ActivityIndicator size='large' color='#0000fff'/>
+            </View>
+        )
+    }
 
   return (
     // Top background image
-    <SafeAreaView style={styles.bg}>
+    <View style={styles.bg}>
         <Image
             source={bg}
             style={styles.bgImg}
         />
         {/* Overall scroll view of the home page */}
-      <ScrollView >
+      <ScrollView>
           {/* Top logo*/}
           <Image
               style={styles.logo}
@@ -61,7 +75,7 @@ export default function Index() {
         {/* Now playing movies */}
         <MovieContainer title="Now Playing Movies" listOfMovies={nowPlayingMoviesList}/>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -75,7 +89,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     logo: {
+        top: 15,
         width: '100%',
         objectFit: 'contain',
     },
+    loader:{
+        justifyContent: 'center',
+    }
 })
