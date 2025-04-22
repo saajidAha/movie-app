@@ -29,7 +29,7 @@ const MovieCard = ({ title, image: imageUri, genre, id, rating }: MovieCardProps
                 <Text style={styles.movieSubTitle}>{rating}</Text>
             </View>
             <Text style={styles.movieSubTitle}>
-                {genre} . Movie
+                {genre} · Movie
             </Text>
         </TouchableOpacity>
     );

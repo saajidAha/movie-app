@@ -1,7 +1,10 @@
-import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-const SubTitle = ({value}: any) => (
+interface PropTypes{
+    value: string
+}
+
+const SubTitle = ({value}: PropTypes) => (
     <Text style={styles.subtitle}>
         {value}
     </Text>
