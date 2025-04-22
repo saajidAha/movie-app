@@ -1,8 +1,9 @@
-import {ScrollView, Text, View, Image, StyleSheet} from "react-native";
-import {useLocalSearchParams} from "expo-router";
+import {ScrollView, Text, View, Image, StyleSheet, TouchableOpacity} from "react-native";
+import {router, useLocalSearchParams} from "expo-router";
 import { getMovieDetails, IMAGE_BASE_URL } from "@/utils/tmdbApiService";
 import { useEffect, useState } from "react";
 import star from '@/assets/icons/star.png';
+import arrow from '@/assets/icons/arrow.png';
 import Overview from "@/components/movie/Overview";
 import PurpleContainer from "@/components/movie/PurpleContainer";
 import GenreContainer from "@/components/movie/GenreContainer";
@@ -163,7 +164,18 @@ const MovieDetail = () => {
                             : company.name + '  ·  '
                         )).join('')}
                     />
+                {/* Go to homepage button */}
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={()=>{router.push('/(tabs)')}}
+                >
+                    <Text style={styles.btnText}>
+                        Visit Home Page 
+                    </Text>
+                    <Image source={arrow} />
+                </TouchableOpacity>
                 </View>
+
             </ScrollView>
         </View>
     )
@@ -172,9 +184,9 @@ export default MovieDetail;
 
 const styles = StyleSheet.create({
     scrollContainer: {
-        marginTop: 25,
+        marginVertical: 25,
         flexDirection: 'column',
-        gap: 22,
+        gap: 25,
     },
     bg: {
         flex: 1,
@@ -210,5 +222,19 @@ const styles = StyleSheet.create({
     release:{
         flexDirection: 'row',
         gap: 50,
+    },
+    button:{
+        flexDirection: 'row',
+        backgroundColor: '#AB8BFF',
+        gap: 20,
+        justifyContent: 'center',
+        paddingHorizontal: 90,
+        paddingVertical: 15,
+        alignSelf: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+    },
+    btnText:{
+        fontWeight: 'bold',
     }
 })
