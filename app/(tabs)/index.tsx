@@ -1,25 +1,26 @@
-import {Image, ScrollView, Text, View, StyleSheet, TextInput} from "react-native";
+import {Image, ScrollView, Text, View, StyleSheet,} from "react-native";
+
 import bg from '@/assets/images/bg.png'
 import logo from '@/assets/icons/logo.png';
-import moviesListTemp from "@/utils/moviesList";
 import MovieContainer from "@/components/MovieContainer";
 import SearchBar  from "@/components/SearchBar";
 import { getMovies } from "@/utils/tmdbApiService";
 import { useEffect, useState } from "react";
 
 export default function Index() {
+    // To store the state for the movies
     const [popularMoviesList, setPopularMoviesList] = useState([]);
     const [trendingMoviesList, setTrendingMoviesList] = useState([]);
 
+    
     // fetch the movies and update the state
-    const fetchMovies = async() => {
-        const popularFetchedMovies = await getMovies('popular'); // fetch the movies
-        const trendingFetchedMovies = await getMovies('trending'); // fetch the movies
-        setPopularMoviesList(popularFetchedMovies); // update the state
-        setTrendingMoviesList(trendingFetchedMovies); // update the state
-    }
-
     useEffect(()=>{
+        const fetchMovies = async() => {
+            const popularFetchedMovies = await getMovies('popular'); // fetch the movies
+            const trendingFetchedMovies = await getMovies('trending'); // fetch the movies
+            setPopularMoviesList(popularFetchedMovies); // update the state
+            setTrendingMoviesList(trendingFetchedMovies); // update the state
+        }
         fetchMovies();
     },[])
 
@@ -31,9 +32,9 @@ export default function Index() {
             source={bg}
             style={styles.bgImg}
         />
-
+        {/* Overall scroll view of the home page */}
       <ScrollView >
-          {/*logo*/}
+          {/* Top logo*/}
           <Image
               style={styles.logo}
               source={logo}
