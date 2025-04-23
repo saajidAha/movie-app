@@ -2,8 +2,11 @@ import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import SubTitle from '@/components/movie/SubtTitle';
 
+interface PropTypes{
+    title: string;
+}
 
-const Overview = ({title}) => (
+const Overview = ({title}: PropTypes) => (
     <View style={styles.container}>
         <SubTitle value="Overview"/>
         <Text style={styles.overview}>
