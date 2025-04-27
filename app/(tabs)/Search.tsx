@@ -1,12 +1,16 @@
-import {Text, View} from "react-native";
+import {Text, View, StyleSheet, Image} from "react-native";
+
+import Layout from "@/components/layouts/Layout";
 
 const Search = () => {
   return(
-      <View>
-          <Text>
-              Search view
-          </Text>
-      </View>
+      <Layout>
+        <View>
+            
+        </View>
+      </Layout>
   )
 }
+
+const styles = StyleSheet.create({})
 export default Search;

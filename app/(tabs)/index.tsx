@@ -1,11 +1,10 @@
 import {Image, ScrollView, Text, View, StyleSheet, SafeAreaView, ActivityIndicator} from "react-native";
 
-import bg from '@/assets/images/bg.png'
-import logo from '@/assets/icons/logo.png';
 import MovieContainer from "@/components/MovieContainer";
 import SearchBar  from "@/components/SearchBar";
 import { getMovies } from "@/utils/tmdbApiService";
 import { useEffect, useState } from "react";
+import Layout from "@/components/layouts/Layout";
 
 export default function Index() {
     // To store the state for the movies
@@ -49,21 +48,7 @@ export default function Index() {
     }
 
   return (
-    // Top background image
-    <View style={styles.bg}>
-        <Image
-            source={bg}
-            style={styles.bgImg}
-        />
-        {/* Overall scroll view of the home page */}
-      <ScrollView>
-          {/* Top logo*/}
-          <Image
-              style={styles.logo}
-              source={logo}
-          />
-      {/* Search bar*/}
-      <SearchBar />
+    <Layout>
         {/*    Popular Movies*/}
         <MovieContainer title="Popular Movies" listOfMovies={popularMoviesList}/>
         {/*    Latest Movies*/}
@@ -74,8 +59,7 @@ export default function Index() {
         <MovieContainer title="Upcoming Movies" listOfMovies={upcomingMoviesList}/>
         {/* Now playing movies */}
         <MovieContainer title="Now Playing Movies" listOfMovies={nowPlayingMoviesList}/>
-      </ScrollView>
-    </View>
+    </Layout>
   );
 }
 
@@ -83,15 +67,6 @@ const styles = StyleSheet.create({
     bg: {
         flex: 1,
         backgroundColor: '#030014',
-    },
-    bgImg:{
-        zIndex: 0,
-        position: 'absolute',
-    },
-    logo: {
-        top: 15,
-        width: '100%',
-        objectFit: 'contain',
     },
     loader:{
         justifyContent: 'center',
