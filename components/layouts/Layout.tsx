@@ -3,8 +3,9 @@ import bg from '@/assets/images/bg.png'
 import logo from '@/assets/icons/logo.png';
 import SearchBar from '../SearchBar';
 
-// layout for all the pages with consistend header and footer
-const Layout = ({children}) => {
+// layout for all the pages with consistent header and footer
+// This contains the general background image, logo, and search bar
+const Layout = ({children}: any) => {
   return (
   <View style={styles.bg}>
       <Image
